@@ -1,0 +1,35 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+	{% for blogPost in blogPosts %}
+		<div class="blog-post mt-3">
+			<h2 class="blog-post-title"><a href="{{ 'post/' | url }}{{ blogPost.id }}">{{ blogPost.title }}</a></h2>
+			<p>Jan 1, 2020 by <a href="" >Alex</a></p>
+			<div class="blog-post-image">
+				{% if blogPost.img_url %}
+					<img src="{{ blogPost.img_url }}">
+				{% endif %}
+				<div class="blog-post-content mt-2">
+				{{ blogPost.content }}
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
+	{% if paginator.hasPages() %} 
+	    <ul class="pagination">
+	        {% if paginator.onFirstPage() %}
+	            <li class="disabled"><span>Previous</span></li>
+	        {% else %}
+	            <li><a href="{{ paginator.previousPageUrl() }}" rel="prev">Previus</a></li>
+	        {% endif %}
+
+	        {% if paginator.hasMorePages() %}
+	            <li><a href="{{ paginator.nextPageUrl() }}" rel="next">Next</a></li>
+	        {% else %}
+	            <li class="disabled"><span>Next</span></li>
+	        {% endif %}
+	    </ul>
+	{% endif %}
+
+{% endblock %}
